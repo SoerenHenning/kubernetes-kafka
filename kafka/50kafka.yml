@@ -69,20 +69,9 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/kafka
-        - name: data
-          mountPath: /var/lib/kafka/data
       volumes:
       - name: configmap
         configMap:
           name: broker-config
       - name: config
         emptyDir: {}
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      storageClassName: kafka-broker
-      resources:
-        requests:
-          storage: 200Gi
