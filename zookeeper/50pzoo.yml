@@ -24,11 +24,6 @@ spec:
       - name: init-config
         image: solsson/kafka-initutils@sha256:18bf01c2c756b550103a99b3c14f741acccea106072cd37155c6d24be4edd6e2
         command: ['/bin/bash', '/etc/kafka-configmap/init.sh']
-        volumeMounts:
-        - name: configmap
-          mountPath: /etc/kafka-configmap
-        - name: config
-          mountPath: /etc/kafka
       containers:
       - name: zookeeper
         image: solsson/kafka:1.0.2@sha256:7fdb326994bcde133c777d888d06863b7c1a0e80f043582816715d76643ab789
@@ -55,12 +50,3 @@ spec:
             - /bin/sh
             - -c
             - '[ "imok" = "$(echo ruok | nc -w 1 -q 1 127.0.0.1 2181)" ]'
-        volumeMounts:
-        - name: config
-          mountPath: /etc/kafka
-      volumes:
-      - name: configmap
-        configMap:
-          name: zookeeper-config
-      - name: config
-        emptyDir: {}
